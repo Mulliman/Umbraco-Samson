@@ -213,6 +213,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\SamsonConfig.cs" />
     <Compile Include="DocumentTypes\BlogPage.cs" />
     <Compile Include="DocumentTypes\Content.cs" />
     <Compile Include="DocumentTypes\Home.cs" />

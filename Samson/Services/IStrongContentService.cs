@@ -20,7 +20,7 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the current node as a T.
         /// </returns>
-        T GetCurrentNode<T>() where T : IBasicContentItem;
+        T GetCurrentNode<T>() where T : class, IBasicContentItem;
 
         /// <summary>
         ///     Gets the node by id.
@@ -40,7 +40,7 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the node by id as a T.
         /// </returns>
-        T GetNodeById<T>(int nodeId) where T : IBasicContentItem;
+        T GetNodeById<T>(int nodeId) where T : class, IBasicContentItem;
 
         /// <summary>
         ///     Gets the nodes by ids.
@@ -60,7 +60,7 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the nodes by ids as a List{T}.
         /// </returns>
-        IEnumerable<T> GetNodesByIds<T>(IEnumerable<int> ids) where T : IBasicContentItem;
+        IEnumerable<T> GetNodesByIds<T>(IEnumerable<int> ids) where T : class, IBasicContentItem;
 
         /// <summary>
         ///     Gets the root nodes.

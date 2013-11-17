@@ -14,14 +14,7 @@
     var home = contentService.GetCurrentNode<Samson.Demo.DocumentTypes.Home>();
 
     @home.MainTitle
-    @Html.Raw(home.MainContent)
-    
-    var imageId = home.HeroImageId;
-
-    var image = mediaService.GetMediaItem<Samson.Basic.MediaTypes.Image>(imageId);
-    
-    <img src="@image.FilePath" alt="test" />
-    
+    @Html.Raw(home.MainContent)    
     
     @Html.Raw(Umbraco.Field("mainContent"))
 

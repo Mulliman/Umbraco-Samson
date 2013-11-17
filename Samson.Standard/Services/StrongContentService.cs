@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Samson.Services;
 using Samson.Standard.DocumentTypes.Interfaces;
+using umbraco.NodeFactory;
+using Umbraco.Core.Services;
 
 namespace Samson.Standard.Services
 {
@@ -24,37 +23,55 @@ namespace Samson.Standard.Services
 
         public Samson.DocumentTypes.IBasicContentItem GetCurrentNode()
         {
-            throw new NotImplementedException();
+            var currentNodeId = Node.getCurrentNodeId();
+
+            if (currentNodeId < 1)
+            {
+                return null;
+            }
+
+            return DocumentTypeFactory.GetNodeById(currentNodeId);
         }
 
-        public T GetCurrentNode<T>() where T : Samson.DocumentTypes.IBasicContentItem
+        public T GetCurrentNode<T>() where T : class, Samson.DocumentTypes.IBasicContentItem
         {
-            throw new NotImplementedException();
+            var currentNodeId = Node.getCurrentNodeId();
+
+            if (currentNodeId < 1)
+            {
+                return default(T);
+            }
+
+            return DocumentTypeFactory.GetNodeById<T>(currentNodeId);
         }
 
         public Samson.DocumentTypes.IBasicContentItem GetNodeById(int nodeId)
         {
-            throw new NotImplementedException();
+            return DocumentTypeFactory.GetNodeById(nodeId);
         }
 
-        public T GetNodeById<T>(int nodeId) where T : Samson.DocumentTypes.IBasicContentItem
+        public T GetNodeById<T>(int nodeId) where T : class, Samson.DocumentTypes.IBasicContentItem
         {
-            throw new NotImplementedException();
+            return DocumentTypeFactory.GetNodeById<T>(nodeId);
         }
 
         public IEnumerable<Samson.DocumentTypes.IBasicContentItem> GetNodesByIds(IEnumerable<int> ids)
         {
-            throw new NotImplementedException();
+            return ids.Where(i => i > 0).Select(GetNodeById);
         }
 
-        public IEnumerable<T> GetNodesByIds<T>(IEnumerable<int> ids) where T : Samson.DocumentTypes.IBasicContentItem
+        public IEnumerable<T> GetNodesByIds<T>(IEnumerable<int> ids) where T : class, Samson.DocumentTypes.IBasicContentItem
         {
-            throw new NotImplementedException();
+            return ids.Where(i => i > 0).Select(i => GetNodeById<T>(i));
         }
 
         public IEnumerable<Samson.DocumentTypes.IBasicContentItem> GetRootNodes()
         {
-            throw new NotImplementedException();
+            var contentService = new ContentService();
+
+            var rootIds = contentService.GetRootContent().Select(c => c.Id);
+
+            return rootIds.Select(GetNodeById);
         }
     }
 }
