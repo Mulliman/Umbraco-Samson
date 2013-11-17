@@ -9,7 +9,7 @@ using umbraco.NodeFactory;
 
 namespace Samson.Basic.DocumentTypes
 {
-    public class BasicDocumentType : Node, IBasicDocumentType
+    public class BasicDocumentType : Node, IBasicContentItem
     {
         public BasicDocumentType()
         {
@@ -33,7 +33,7 @@ namespace Samson.Basic.DocumentTypes
 
         public IStrongContentService ContentService { get; set; }
 
-        #region Implementation of IBasicDocumentType
+        #region Implementation of IBasicContentItem
 
         /// <summary>
         ///     Gets the creator id.
@@ -89,11 +89,11 @@ namespace Samson.Basic.DocumentTypes
         /// <returns>
         ///     Returns the child nodes as a List{Item}.
         /// </returns>
-        public IEnumerable<IBasicDocumentType> GetChildNodes()
+        public IEnumerable<IBasicContentItem> GetChildNodes()
         {
             var childIds = ChildrenAsList.Select(c => c.Id);
 
-            return childIds.Any() ? childIds.Select(i => ContentService.GetNodeById(i)) : Enumerable.Empty<IBasicDocumentType>();
+            return childIds.Any() ? childIds.Select(i => ContentService.GetNodeById(i)) : Enumerable.Empty<IBasicContentItem>();
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Samson.Basic.DocumentTypes
         /// <returns>
         ///     Returns the child nodes as a List{T}.
         /// </returns>
-        public IEnumerable<T> GetChildNodes<T>() where T : IBasicDocumentType
+        public IEnumerable<T> GetChildNodes<T>() where T : IBasicContentItem
         {
             var childIds = ChildrenAsList.Select(c => c.Id);
 
@@ -136,7 +136,7 @@ namespace Samson.Basic.DocumentTypes
         ///     Gets the descendant nodes.
         /// </summary>
         /// <returns>The descendant nodes.</returns>
-        public IEnumerable<IBasicDocumentType> GetDescendantNodes()
+        public IEnumerable<IBasicContentItem> GetDescendantNodes()
         {
             throw new NotImplementedException("Hopefully you shouldn't need to use descendants as it can possibly create a huge performance hit. If we end up needing it we'll implement it.");
         }
@@ -146,7 +146,7 @@ namespace Samson.Basic.DocumentTypes
         /// </summary>
         /// <typeparam name="T">The type to return</typeparam>
         /// <returns>The descendant nodes.</returns>
-        public IEnumerable<T> GetDescendantNodes<T>() where T : IBasicDocumentType
+        public IEnumerable<T> GetDescendantNodes<T>() where T : IBasicContentItem
         {
             throw new NotImplementedException("Hopefully you shouldn't need to use descendants as it can possibly create a huge performance hit. If we end up needing it we'll implement it.");
         }
@@ -159,9 +159,9 @@ namespace Samson.Basic.DocumentTypes
         ///     Gets the parent node.
         /// </summary>
         /// <returns>
-        ///     Returns the parent as a IBasicDocumentType.
+        ///     Returns the parent as a IBasicContentItem.
         /// </returns>
-        public IBasicDocumentType GetParentNode()
+        public IBasicContentItem GetParentNode()
         {
             return ContentService.GetNodeById(ParentId);
         }
@@ -173,7 +173,7 @@ namespace Samson.Basic.DocumentTypes
         /// <returns>
         ///     Returns the parent as a T.
         /// </returns>
-        public T GetParentNode<T>() where T : IBasicDocumentType, new()
+        public T GetParentNode<T>() where T : IBasicContentItem, new()
         {
             return ContentService.GetNodeById<T>(ParentId);
         }
@@ -188,7 +188,7 @@ namespace Samson.Basic.DocumentTypes
         /// <returns>
         ///     Returns the ancestor node of type as a BasicDocumentType.
         /// </returns>
-        public T GetAncestorNodeOfType<T>() where T : class, IBasicDocumentType
+        public T GetAncestorNodeOfType<T>() where T : class, IBasicContentItem
         {
             if (ParentId == 0 || ParentId == -1)
             {
@@ -198,7 +198,7 @@ namespace Samson.Basic.DocumentTypes
             return GetAncestor<T>(ParentId);
         }
 
-        private T GetAncestor<T>(int childId) where T : class, IBasicDocumentType
+        private T GetAncestor<T>(int childId) where T : class, IBasicContentItem
         {
             var node = ContentService.GetNodeById(childId);
 

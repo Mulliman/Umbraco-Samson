@@ -24,4 +24,17 @@
     
     
     @Html.Raw(Umbraco.Field("mainContent"))
+
+    var blogArticles = home.GetChildNodes<Samson.Demo.DocumentTypes.BlogPage>();
+
+    if (blogArticles.Any())
+    {
+        <h3>Blog Articles</h3>
+        <ul>
+        @foreach (var article in blogArticles)
+        { 
+            <li><a href="@article.Url">@article.Name</a></li>
+        } 
+        </ul>
+    }
 }

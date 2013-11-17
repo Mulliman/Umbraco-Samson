@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Samson.Basic.DocumentTypes;
 using Samson.DocumentTypes;
 
 namespace Samson.Basic.Cache
@@ -35,7 +36,31 @@ namespace Samson.Basic.Cache
         {
             return Assembly.GetExecutingAssembly().GetTypes().ToList()
                 .Where(t => NamespaceIsInDefinedNamespaces(t.Namespace, AllowedRootNamespaces) 
-                            && t.IsAssignableFrom(typeof(IBasicDocumentType))).ToList();
+                            && t.IsAssignableFrom(typeof(IBasicContentItem))).ToList();
+        }
+
+        protected override IDictionary<string, Type> GetAliasTypeDictionaryFromAssembly()
+        {
+            var impliedDocumentTypes = Types.ToDictionary(t => t.Name.ToLower(), t => t);
+
+            var specifiedTypes = Types.Where(t => t.GetCustomAttribute<DocumentTypeAttribute>() != null)
+                                      .ToDictionary(t => t.GetCustomAttribute<DocumentTypeAttribute>().DocumentTypeAlias.ToLower(),
+                                                    t => t);
+
+            var documentTypes = impliedDocumentTypes;
+
+            foreach (var specifiedType in specifiedTypes)
+            {
+                // We want specified docTypes to override inferred ones.
+                if (documentTypes.ContainsKey(specifiedType.Key))
+                {
+                    documentTypes.Remove(specifiedType.Key);
+                }
+
+                documentTypes.Add(specifiedType.Key, specifiedType.Value);
+            }
+
+            return documentTypes;
         }
     }
 }

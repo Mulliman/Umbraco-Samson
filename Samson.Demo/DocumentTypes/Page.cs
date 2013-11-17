@@ -1,23 +1,10 @@
-﻿using Samson.Basic.DocumentTypes;
+﻿using Samson.Standard.DocumentTypes;
 using Samson.Services;
 
 namespace Samson.Demo.DocumentTypes
 {
-    public class Page : BasicDocumentType
+    public class Page : BasicContentItem
     {
-        public Page()
-        {
-        }
-
-        public Page(int nodeId)
-            : base(nodeId)
-        {
-        }
-
-        public Page(int nodeId, IStrongContentService contentService) : base(nodeId, contentService)
-        {
-        }
-
         /// <summary>
         /// Gets or sets the main title.
         /// </summary>

@@ -9,9 +9,9 @@ namespace Samson.Services
         ///     Gets the current node.
         /// </summary>
         /// <returns>
-        ///     Returns the current node as a IBasicDocumentType.
+        ///     Returns the current node as a IBasicContentItem.
         /// </returns>
-        IBasicDocumentType GetCurrentNode();
+        IBasicContentItem GetCurrentNode();
 
         /// <summary>
         ///     Gets the current node.
@@ -20,7 +20,7 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the current node as a T.
         /// </returns>
-        T GetCurrentNode<T>() where T : IBasicDocumentType;
+        T GetCurrentNode<T>() where T : IBasicContentItem;
 
         /// <summary>
         ///     Gets the node by id.
@@ -29,7 +29,7 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the node by id as a Item.
         /// </returns>
-        IBasicDocumentType GetNodeById(int nodeId);
+        IBasicContentItem GetNodeById(int nodeId);
 
         /// <summary>
         ///     Gets the node by id.
@@ -40,27 +40,7 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the node by id as a T.
         /// </returns>
-        T GetNodeById<T>(int nodeId) where T : IBasicDocumentType;
-
-        /// <summary>
-        ///     Gets the node by id if still as string.
-        /// </summary>
-        /// <param name="nodeId">The node id.</param>
-        /// <returns>
-        ///     Returns the node by id as a Item.
-        /// </returns>
-        IBasicDocumentType GetNodeById(string nodeId);
-
-        /// <summary>
-        ///     Gets the node by id if still as string.
-        /// </summary>
-        /// <typeparam name="T">The type to return</typeparam>
-        /// The type to return.
-        /// <param name="nodeId">The node id.</param>
-        /// <returns>
-        ///     Returns the node by id as a T.
-        /// </returns>
-        T GetNodeById<T>(string nodeId) where T : IBasicDocumentType;
+        T GetNodeById<T>(int nodeId) where T : IBasicContentItem;
 
         /// <summary>
         ///     Gets the nodes by ids.
@@ -69,7 +49,7 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the nodes by ids as a List{Item}.
         /// </returns>
-        IEnumerable<IBasicDocumentType> GetNodesByIds(IEnumerable<int> ids);
+        IEnumerable<IBasicContentItem> GetNodesByIds(IEnumerable<int> ids);
 
         /// <summary>
         ///     Gets the nodes by ids.
@@ -80,7 +60,7 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the nodes by ids as a List{T}.
         /// </returns>
-        IEnumerable<T> GetNodesByIds<T>(IEnumerable<int> ids) where T : IBasicDocumentType;
+        IEnumerable<T> GetNodesByIds<T>(IEnumerable<int> ids) where T : IBasicContentItem;
 
         /// <summary>
         ///     Gets the root nodes.
@@ -88,6 +68,6 @@ namespace Samson.Services
         /// <returns>
         ///     Returns the root nodes as a List{Item}.
         /// </returns>
-        IEnumerable<IBasicDocumentType> GetRootNodes();
+        IEnumerable<IBasicContentItem> GetRootNodes();
     }
 }

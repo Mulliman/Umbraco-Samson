@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Samson.DocumentTypes
 {
-    public interface IBasicDocumentType
+    public interface IBasicContentItem
     {
         /// <summary>
         ///     Gets the create date.
@@ -14,7 +11,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The create date.
         /// </value>
-        DateTime CreateDate { get; }
+        DateTime CreateDate { get; set; }
 
         /// <summary>
         ///     Gets the creator id.
@@ -22,7 +19,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The creator id.
         /// </value>
-        int CreatorId { get; }
+        int CreatorId { get; set; }
 
         /// <summary>
         ///     Gets the name of the creator.
@@ -30,7 +27,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The name of the creator.
         /// </value>
-        string CreatorName { get; }
+        string CreatorName { get; set; }
 
         /// <summary>
         ///     Gets the id.
@@ -38,7 +35,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The id.
         /// </value>
-        int Id { get; }
+        int Id { get; set; }
 
         /// <summary>
         ///     Gets or sets the name.
@@ -46,7 +43,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The name.
         /// </value>
-        string Name { get; }
+        string Name { get; set; }
 
         /// <summary>
         ///     Gets the nice URL.
@@ -54,7 +51,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The nice URL.
         /// </value>
-        string NiceUrl { get; }
+        string NiceUrl { get; set; }
 
         /// <summary>
         ///     Gets the node type alias.
@@ -62,7 +59,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The node type alias.
         /// </value>
-        string NodeTypeAlias { get; }
+        string NodeTypeAlias { get; set; }
 
         /// <summary>
         ///     Gets or sets the parent id.
@@ -70,7 +67,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The parent id.
         /// </value>
-        int ParentId { get; }
+        int ParentId { get; set; }
 
         /// <summary>
         ///     Gets the path.
@@ -78,7 +75,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The path.
         /// </value>
-        string Path { get; }
+        string Path { get; set; }
 
         /// <summary>
         ///     Gets the sort order.
@@ -86,7 +83,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The sort order.
         /// </value>
-        int SortOrder { get; }
+        int SortOrder { get; set; }
 
         /// <summary>
         ///     Gets the template.
@@ -94,7 +91,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The template.
         /// </value>
-        int Template { get; }
+        int Template { get; set; }
 
         /// <summary>
         ///     Gets the update date.
@@ -102,7 +99,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The update date.
         /// </value>
-        DateTime UpdateDate { get; }
+        DateTime UpdateDate { get; set; }
 
         /// <summary>
         ///     Gets the URL.
@@ -110,7 +107,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The URL.
         /// </value>
-        string Url { get; }
+        string Url { get; set; }
 
         /// <summary>
         ///     Gets the version.
@@ -118,7 +115,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The version.
         /// </value>
-        Guid Version { get; }
+        Guid Version { get; set; }
 
         /// <summary>
         ///     Gets the writer ID.
@@ -126,7 +123,7 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The writer ID.
         /// </value>
-        int WriterId { get; }
+        int WriterId { get; set; }
 
         /// <summary>
         ///     Gets the name of the writer.
@@ -134,19 +131,19 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The name of the writer.
         /// </value>
-        string WriterName { get; }
+        string WriterName { get; set; }
 
         /// <summary>
         /// Gets the child nodes.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<IBasicDocumentType> GetChildNodes();
+        IEnumerable<IBasicContentItem> GetChildNodes();
 
         /// <summary>
         /// Gets the child nodes.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        IEnumerable<T> GetChildNodes<T>() where T : IBasicDocumentType;
+        IEnumerable<T> GetChildNodes<T>() where T : IBasicContentItem;
     }
 }

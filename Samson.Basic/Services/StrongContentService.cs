@@ -23,9 +23,9 @@ namespace Samson.Basic.Services
         ///     Gets the current node.
         /// </summary>
         /// <returns>
-        ///     Returns the current node as a IBasicDocumentType.
+        ///     Returns the current node as a IBasicContentItem.
         /// </returns>
-        public IBasicDocumentType GetCurrentNode()
+        public IBasicContentItem GetCurrentNode()
         {
             var current = Node.GetCurrent();
             var currentAlias = current.NodeTypeAlias;
@@ -47,7 +47,7 @@ namespace Samson.Basic.Services
         /// <returns>
         ///     Returns the current node as a T.
         /// </returns>
-        public T GetCurrentNode<T>() where T : IBasicDocumentType
+        public T GetCurrentNode<T>() where T : IBasicContentItem
         {
             if (typeof(T).IsInterface)
             {
@@ -69,7 +69,7 @@ namespace Samson.Basic.Services
         /// <returns>
         ///     Returns the node by id as a Item.
         /// </returns>
-        public IBasicDocumentType GetNodeById(int nodeId)
+        public IBasicContentItem GetNodeById(int nodeId)
         {
             var current = new Node(nodeId);
             var currentAlias = current.NodeTypeAlias;
@@ -93,7 +93,7 @@ namespace Samson.Basic.Services
         /// <returns>
         ///     Returns the node by id as a T.
         /// </returns>
-        public T GetNodeById<T>(int nodeId) where T : IBasicDocumentType
+        public T GetNodeById<T>(int nodeId) where T : IBasicContentItem
         {
             if (typeof(T).IsInterface)
             {
@@ -113,7 +113,7 @@ namespace Samson.Basic.Services
         /// <returns>
         ///     Returns the node by id as a Item.
         /// </returns>
-        public IBasicDocumentType GetNodeById(string nodeId)
+        public IBasicContentItem GetNodeById(string nodeId)
         {
             int id;
 
@@ -134,7 +134,7 @@ namespace Samson.Basic.Services
         /// <returns>
         ///     Returns the node by id as a T.
         /// </returns>
-        public T GetNodeById<T>(string nodeId) where T : IBasicDocumentType
+        public T GetNodeById<T>(string nodeId) where T : IBasicContentItem
         {
             int id;
 
@@ -153,7 +153,7 @@ namespace Samson.Basic.Services
         /// <returns>
         ///     Returns the nodes by ids as a List{Item}.
         /// </returns>
-        public IEnumerable<IBasicDocumentType> GetNodesByIds(IEnumerable<int> ids)
+        public IEnumerable<IBasicContentItem> GetNodesByIds(IEnumerable<int> ids)
         {
             return ids.Select(GetNodeById);
         }
@@ -167,7 +167,7 @@ namespace Samson.Basic.Services
         /// <returns>
         ///     Returns the nodes by ids as a List{T}.
         /// </returns>
-        public IEnumerable<T> GetNodesByIds<T>(IEnumerable<int> ids) where T : IBasicDocumentType
+        public IEnumerable<T> GetNodesByIds<T>(IEnumerable<int> ids) where T : IBasicContentItem
         {
             return ids.Select(GetNodeById).Cast<T>();
         }
@@ -178,7 +178,7 @@ namespace Samson.Basic.Services
         /// <returns>
         ///     Returns the root nodes as a List{Item}.
         /// </returns>
-        public IEnumerable<IBasicDocumentType> GetRootNodes()
+        public IEnumerable<IBasicContentItem> GetRootNodes()
         {
             var service = new Umbraco.Core.Services.ContentService();
 
