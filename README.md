@@ -9,19 +9,21 @@ This uses the built in service (which currently needs the Document type to be ca
 
 ### Create the document type
 
-This uses the built in BasicDocumentType, but you can use code-gen, uSiteBuilder models, glass models etc as long as they implement IBasicDocumentType
+This uses the built in BasicContentItem, but you can use code-gen, uSiteBuilder models, glass models etc as long as they implement IBasicContentItem
 
-    using Samson.Basic.DocumentTypes;
+    using Samson.Standard.DocumentTypes;
     using Samson.Services;
 
     namespace Samson.Demo.DocumentTypes
     {
-        public class Page : BasicDocumentType
+        public class Page : BasicContentItem
         {
-            public Page(){}
-            public Page(int nodeId) : base(nodeId){}
-            public Page(int nodeId, IStrongContentService contentService) : base(nodeId, contentService){}
-
+            /// <summary>
+            /// Gets or sets the main title.
+            /// </summary>
+            /// <value>
+            /// The main title.
+            /// </value>
             public string MainTitle { get { return GetProperty<string>("mainTitle"); } }
         }
     }
@@ -30,7 +32,7 @@ This uses the built in BasicDocumentType, but you can use code-gen, uSiteBuilder
 
 This is the most basic way to use the content service
 
-    var contentService = new StrongContentService(new DocumentTypeModelsRepository());
+    var contentService = new StrongContentService();
 
     var page = contentService.GetCurrentNode<Samson.Demo.DocumentTypes.Page>();
 
