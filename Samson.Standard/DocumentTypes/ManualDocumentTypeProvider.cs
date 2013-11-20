@@ -50,7 +50,7 @@ namespace Samson.Standard.DocumentTypes
             {
                 var result = ModelTypesAndAliases.FirstOrDefault(m => m.Key.Equals(alias, StringComparison.OrdinalIgnoreCase));
 
-                return result.Equals(default(KeyValuePair<string, Type>)) ? result.Value : default(Type);
+                return !result.Equals(default(KeyValuePair<string, Type>)) ? result.Value : default(Type);
             }
 
             return default(Type);

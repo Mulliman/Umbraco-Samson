@@ -43,6 +43,71 @@ namespace Samson.Services
         T GetNodeById<T>(int nodeId) where T : class, IBasicContentItem;
 
         /// <summary>
+        /// Gets the nodes by ids.
+        /// </summary>
+        /// <param name="parent">The parent.</param>
+        /// <returns>
+        /// Returns the nodes by ids as a List{Item}.
+        /// </returns>
+        IEnumerable<IBasicContentItem> GetChildNodes(IBasicContentItem parent);
+
+        /// <summary>
+        /// Gets the nodes by ids.
+        /// </summary>
+        /// <typeparam name="T">The type to return</typeparam>
+        /// <param name="parent">The parent.</param>
+        /// <returns>
+        /// Returns the nodes by ids as a List{T}.
+        /// </returns>
+        /// The type to return.
+        IEnumerable<T> GetChildNodes<T>(IBasicContentItem parent) where T : class, IBasicContentItem;
+
+        /// <summary>
+        /// Gets the child nodes.
+        /// </summary>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns></returns>
+        IEnumerable<IBasicContentItem> GetChildNodes(int parentId);
+
+        /// <summary>
+        /// Gets the child nodes.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns></returns>
+        IEnumerable<T> GetChildNodes<T>(int parentId) where T : class, IBasicContentItem;
+
+        /// <summary>
+        /// Gets the parent.
+        /// </summary>
+        /// <param name="child">The child.</param>
+        /// <returns></returns>
+        IBasicContentItem GetParent(IBasicContentItem child);
+
+        /// <summary>
+        /// Gets the parent.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="child">The child.</param>
+        /// <returns></returns>
+        T GetParent<T>(IBasicContentItem child) where T : class, IBasicContentItem;
+
+        /// <summary>
+        /// Gets the parent.
+        /// </summary>
+        /// <param name="childId">The child identifier.</param>
+        /// <returns></returns>
+        IBasicContentItem GetParent(int childId);
+
+        /// <summary>
+        /// Gets the parent.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="childId">The child identifier.</param>
+        /// <returns></returns>
+        T GetParent<T>(int childId) where T : class, IBasicContentItem;
+
+        /// <summary>
         ///     Gets the nodes by ids.
         /// </summary>
         /// <param name="ids">The ids.</param>

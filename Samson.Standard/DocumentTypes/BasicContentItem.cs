@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Samson.DocumentTypes;
 using Umbraco.Core.Models;
 
@@ -9,6 +10,14 @@ namespace Samson.Standard.DocumentTypes
     public class BasicContentItem : IBasicContentItem
     {
         public IPublishedContent ContentItem { get; set; }
+
+        /// <summary>
+        /// Gets or sets the child ids.
+        /// </summary>
+        /// <value>
+        /// The child ids.
+        /// </value>
+        public IEnumerable<int> ChildIds { get; set; }
 
         public DateTime CreateDate
         {
@@ -88,16 +97,6 @@ namespace Samson.Standard.DocumentTypes
         public string WriterName
         {
             get; set;
-        }
-
-        public IEnumerable<IBasicContentItem> GetChildNodes()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> GetChildNodes<T>() where T : IBasicContentItem
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

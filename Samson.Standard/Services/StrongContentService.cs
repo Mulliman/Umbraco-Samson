@@ -55,6 +55,58 @@ namespace Samson.Standard.Services
             return DocumentTypeFactory.GetNodeById<T>(nodeId);
         }
 
+        #region Children
+
+        public IEnumerable<Samson.DocumentTypes.IBasicContentItem> GetChildNodes(Samson.DocumentTypes.IBasicContentItem parent)
+        {
+            return GetNodesByIds(parent.ChildIds);
+        }
+
+        public IEnumerable<T> GetChildNodes<T>(Samson.DocumentTypes.IBasicContentItem parent) where T : class, Samson.DocumentTypes.IBasicContentItem
+        {
+            return GetNodesByIds<T>(parent.ChildIds).Where(c => c != null);
+        }
+
+        public IEnumerable<Samson.DocumentTypes.IBasicContentItem> GetChildNodes(int parentId)
+        {
+            var parent = GetNodeById(parentId);
+            return GetChildNodes(parent);
+        }
+
+        public IEnumerable<T> GetChildNodes<T>(int parentId) where T : class, Samson.DocumentTypes.IBasicContentItem
+        {
+            var parent = GetNodeById(parentId);
+            return GetChildNodes<T>(parent).Where(c => c != null);
+        }
+
+        #endregion
+
+        #region Parent
+
+        public Samson.DocumentTypes.IBasicContentItem GetParent(Samson.DocumentTypes.IBasicContentItem child)
+        {
+            return GetNodeById(child.ParentId);
+        }
+
+        public T GetParent<T>(Samson.DocumentTypes.IBasicContentItem child) where T : class, Samson.DocumentTypes.IBasicContentItem
+        {
+            return GetNodeById<T>(child.ParentId);
+        }
+
+        public Samson.DocumentTypes.IBasicContentItem GetParent(int childId)
+        {
+            var child = GetNodeById(childId);
+            return GetNodeById(child.ParentId);
+        }
+
+        public T GetParent<T>(int childId) where T : class, Samson.DocumentTypes.IBasicContentItem
+        {
+            var child = GetNodeById(childId);
+            return GetNodeById<T>(child.ParentId);
+        }
+
+        #endregion
+
         public IEnumerable<Samson.DocumentTypes.IBasicContentItem> GetNodesByIds(IEnumerable<int> ids)
         {
             return ids.Where(i => i > 0).Select(GetNodeById);

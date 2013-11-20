@@ -1,6 +1,4 @@
-﻿@using Samson.Basic.Services
-
-@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Page.cshtml";
 }
@@ -8,8 +6,7 @@
 @{
     <h1>@Umbraco.Field("mainTitle")</h1>
     
-    var contentService = new StrongContentService(new DocumentTypeModelsRepository());
-    var mediaService = new StrongMediaService(new MediaTypeModelsRepository());
+    var contentService = new Samson.Standard.Services.StrongContentService();
 
     var home = contentService.GetCurrentNode<Samson.Demo.DocumentTypes.Home>();
 
@@ -18,7 +15,7 @@
     
     @Html.Raw(Umbraco.Field("mainContent"))
 
-    var blogArticles = home.GetChildNodes<Samson.Demo.DocumentTypes.BlogPage>();
+    var blogArticles = contentService.GetChildNodes<Samson.Demo.DocumentTypes.BlogPage>(home);
 
     if (blogArticles.Any())
     {

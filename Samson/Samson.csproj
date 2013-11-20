@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocumentTypes\IBasicDocumentType.cs" />
+    <Compile Include="DocumentTypes\IBasicContentItem.cs" />
     <Compile Include="MediaTypes\IBasicMediaType.cs" />
     <Compile Include="MediaTypes\IDownloadable.cs" />
     <Compile Include="MediaTypes\IFile.cs" />

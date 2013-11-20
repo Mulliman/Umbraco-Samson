@@ -6,6 +6,14 @@ namespace Samson.DocumentTypes
     public interface IBasicContentItem
     {
         /// <summary>
+        /// Gets or sets the child ids.
+        /// </summary>
+        /// <value>
+        /// The child ids.
+        /// </value>
+        IEnumerable<int> ChildIds { get; set; }
+
+        /// <summary>
         ///     Gets the create date.
         /// </summary>
         /// <value>
@@ -131,19 +139,6 @@ namespace Samson.DocumentTypes
         /// <value>
         ///     The name of the writer.
         /// </value>
-        string WriterName { get; set; }
-
-        /// <summary>
-        /// Gets the child nodes.
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<IBasicContentItem> GetChildNodes();
-
-        /// <summary>
-        /// Gets the child nodes.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        IEnumerable<T> GetChildNodes<T>() where T : IBasicContentItem;
+        string WriterName { get; set;}
     }
 }

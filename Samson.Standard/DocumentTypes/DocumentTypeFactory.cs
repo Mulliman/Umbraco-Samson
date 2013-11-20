@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Samson.DocumentTypes;
 using Samson.Standard.DocumentTypes.Interfaces;
 using Umbraco.Core.Models;
@@ -56,7 +57,7 @@ namespace Samson.Standard.DocumentTypes
 
             var type = DocumentTypesProvider.GetModelTypeFromAlias(alias);
 
-            return CreateModel<IBasicContentItem>(type, contentItem);
+            return CreateModel<BasicContentItem>(type, contentItem);
         }
 
         /// <summary>
@@ -86,7 +87,12 @@ namespace Samson.Standard.DocumentTypes
 
             var type = DocumentTypesProvider.GetModelTypeFromAlias(alias);
 
-            return CreateModel<T>(type, contentItem);
+            if (typeof(T).IsAssignableFrom(type))
+            {
+                return CreateModel<T>(type, contentItem);
+            }
+
+            return default(T);
         }
 
         /// <summary>
@@ -114,6 +120,7 @@ namespace Samson.Standard.DocumentTypes
         /// <returns></returns>
         protected T AddStandardUmbracoPropertiesToModel<T>(T model, IPublishedContent contentItem) where T : class, IBasicContentItem
         {
+            model.ChildIds = contentItem.Children.Select(c => c.Id);
             model.CreateDate = contentItem.CreateDate;
             model.CreatorId = contentItem.CreatorId;
             model.CreatorName = contentItem.CreatorName;

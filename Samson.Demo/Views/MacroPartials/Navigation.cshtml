@@ -1,13 +1,13 @@
-﻿@using Samson.Basic.Services;
+﻿@using Samson.Standard.Services;
 @inherits Umbraco.Web.Macros.PartialViewMacroPage
 
 @{
-    var contentService = new StrongContentService(new DocumentTypeModelsRepository());
+    var contentService = new StrongContentService();
     
     var rootNode = contentService.GetRootNodes().FirstOrDefault();
   
     // Basic
-    var children = rootNode.GetChildNodes();
+    var children = contentService.GetChildNodes(rootNode);
     
     <h3>Basic Typed Nav</h3>
     <ul>
@@ -18,7 +18,7 @@
     </ul>
     
     // Typed
-    var strongChildren = rootNode.GetChildNodes<Samson.Demo.DocumentTypes.Content>();
+    var strongChildren = contentService.GetChildNodes<Samson.Demo.DocumentTypes.Page>(rootNode);
 
     <h3>Strongly Typed Nav</h3>
     <ul>
