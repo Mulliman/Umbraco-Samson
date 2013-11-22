@@ -11,7 +11,7 @@
         /// <value>
         ///     The alternate text.
         /// </value>
-        string AlternateText { get; set; }
+        string AlternateText { get; }
 
         /// <summary>
         ///     Gets or sets the width.
@@ -19,7 +19,7 @@
         /// <value>
         ///     The width.
         /// </value>
-        int? Width { get; set; }
+        int? Width { get; }
 
         /// <summary>
         ///     Gets or sets the height.
@@ -27,7 +27,7 @@
         /// <value>
         ///     The height.
         /// </value>
-        int? Height { get; set; }
+        int? Height { get; }
 
         /// <summary>
         ///     Gets or sets the type.
@@ -35,6 +35,6 @@
         /// <value>
         ///     The type.
         /// </value>
-        string Type { get; set; }
+        string Type { get; }
     }
 }

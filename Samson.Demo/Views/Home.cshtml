@@ -7,6 +7,7 @@
     <h1>@Umbraco.Field("mainTitle")</h1>
     
     var contentService = new Samson.Standard.Services.StrongContentService();
+    var mediaService = new Samson.Standard.Services.StrongMediaService();
 
     var home = contentService.GetCurrentNode<Samson.Demo.DocumentTypes.Home>();
 
@@ -22,8 +23,12 @@
         <h3>Blog Articles</h3>
         <ul>
         @foreach (var article in blogArticles)
-        { 
-            <li><a href="@article.Url">@article.Name</a></li>
+        {
+            var image = mediaService.GetMediaItem<Samson.Standard.MediaTypes.Image>(article.ListingImageId);
+            <li>
+                <a href="@article.Url">@article.Name</a>
+                <img src="@image.FilePath" alt="@image.Name" />
+            </li>
         } 
         </ul>
     }

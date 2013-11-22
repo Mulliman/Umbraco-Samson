@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentTypes\IBasicContentItem.cs" />
-    <Compile Include="MediaTypes\IBasicMediaType.cs" />
+    <Compile Include="MediaTypes\IBasicMediaItem.cs" />
     <Compile Include="MediaTypes\IDownloadable.cs" />
     <Compile Include="MediaTypes\IFile.cs" />
     <Compile Include="MediaTypes\IFolder.cs" />

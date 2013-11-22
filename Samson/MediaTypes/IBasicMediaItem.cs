@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Samson.MediaTypes
 {
-    public interface IBasicMediaType
+    public interface IBasicMediaItem
     {
         /// <summary>
         ///     Gets or sets the id of the media item.
@@ -30,6 +30,6 @@ namespace Samson.MediaTypes
         /// <value>
         ///     The create date time.
         /// </value>
-        DateTime CreateDateTime { get; set; }
+        DateTime CreateDate { get; set; }
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Samson.Standard.DocumentTypes;
 using Samson.Standard.DocumentTypes.Interfaces;
+using Samson.Standard.MediaTypes;
+using Samson.Standard.MediaTypes.Interfaces;
 using Umbraco.Web;
 
 namespace Samson.Standard
@@ -52,6 +54,25 @@ namespace Samson.Standard
         public IDocumentTypeFactory DocumentTypeFactory 
         {
             get { return new DocumentTypeFactory(_umbracoHelper, DocumentTypesProvider); } 
+        }
+
+        /// <summary>
+        /// Gets or sets the media types provider.
+        /// </summary>
+        /// <value>
+        /// The media types provider.
+        /// </value>
+        public IMediaTypesProvider MediaTypesProvider { get; set; }
+
+        /// <summary>
+        /// Gets or sets the media type factory.
+        /// </summary>
+        /// <value>
+        /// The media type factory.
+        /// </value>
+        public IMediaTypeFactory MediaTypeFactory
+        {
+            get { return new MediaTypeFactory(_umbracoHelper, MediaTypesProvider); }
         }
     }
 }

@@ -193,9 +193,19 @@
     <Compile Include="DocumentTypes\Interfaces\IDocumentTypeFactory.cs" />
     <Compile Include="DocumentTypes\Interfaces\IDocumentTypesProvider.cs" />
     <Compile Include="DocumentTypes\ManualDocumentTypeProvider.cs" />
+    <Compile Include="MediaTypes\BasicMediaItem.cs" />
+    <Compile Include="MediaTypes\Downloadable.cs" />
+    <Compile Include="MediaTypes\File.cs" />
+    <Compile Include="MediaTypes\Folder.cs" />
+    <Compile Include="MediaTypes\Image.cs" />
+    <Compile Include="MediaTypes\Interfaces\IMediaTypeFactory.cs" />
+    <Compile Include="MediaTypes\Interfaces\IMediaTypesProvider.cs" />
+    <Compile Include="MediaTypes\ManualMediaTypesProvider.cs" />
+    <Compile Include="MediaTypes\MediaTypeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamsonContext.cs" />
     <Compile Include="Services\StrongContentService.cs" />
+    <Compile Include="Services\StrongMediaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Samson\Samson.csproj">
@@ -206,9 +216,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MediaTypes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

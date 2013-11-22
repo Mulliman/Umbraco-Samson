@@ -1,6 +1,6 @@
 ﻿namespace Samson.MediaTypes
 {
-    public interface IFolder : IBasicMediaType
+    public interface IFolder : IBasicMediaItem
     {
     }
 }

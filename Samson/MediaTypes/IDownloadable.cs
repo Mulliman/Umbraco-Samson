@@ -3,7 +3,7 @@
     /// <summary>
     /// A media upload that allows the editor to upload some content.
     /// </summary>
-    public interface IDownloadable : IBasicMediaType
+    public interface IDownloadable : IBasicMediaItem
     {
         /// <summary>
         ///     Gets or sets the image path.
@@ -11,7 +11,7 @@
         /// <value>
         ///     The image path.
         /// </value>
-        string FilePath { get; set; }
+        string FilePath { get; }
 
         /// <summary>
         ///     Gets or sets the size in kb.
@@ -19,6 +19,6 @@
         /// <value>
         ///     The size in kb.
         /// </value>
-        int? SizeInKb { get; set; }
+        int? SizeInKb { get; }
     }
 }

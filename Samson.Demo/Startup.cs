@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Samson.Demo.DocumentTypes;
 using Samson.Standard;
 using Samson.Standard.DocumentTypes;
+using Samson.Standard.MediaTypes;
 using Umbraco.Core;
 
 namespace Samson.Demo
@@ -19,9 +20,18 @@ namespace Samson.Demo
                     {"Home", typeof(Home)}
                 };
 
-            SamsonContext.Current.DocumentTypesProvider = new ManualDocumentTypeProvider();
+            var mediaModelTypes = new Dictionary<string, Type>
+                {
+                    {"Image", typeof(Image)},
+                    {"File", typeof(File)},
+                    {"Folder", typeof(Folder)}
+                };
 
+            SamsonContext.Current.DocumentTypesProvider = new ManualDocumentTypeProvider();
             SamsonContext.Current.DocumentTypesProvider.RegisterModelTypes(modelTypes);
+
+            SamsonContext.Current.MediaTypesProvider = new ManualMediaTypesProvider();
+            SamsonContext.Current.MediaTypesProvider.RegisterModelTypes(mediaModelTypes);
         }
 
     }

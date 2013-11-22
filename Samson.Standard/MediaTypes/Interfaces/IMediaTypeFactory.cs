@@ -1,22 +1,22 @@
 ﻿using Samson.MediaTypes;
 
-namespace Samson.Services
+namespace Samson.Standard.MediaTypes.Interfaces
 {
-    public interface IStrongMediaService
+    public interface IMediaTypeFactory
     {
         /// <summary>
-        /// Gets the media item.
+        /// Gets the media item by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        IBasicMediaItem GetMediaItem(int id);
+        IBasicMediaItem GetMediaItemById(int id);
 
         /// <summary>
-        /// Gets the media item.
+        /// Gets the media item by identifier.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        T GetMediaItem<T>(int id) where T : class, IBasicMediaItem;
+        T GetMediaItemById<T>(int id) where T : class, IBasicMediaItem;
     }
 }
