@@ -2,7 +2,7 @@
 
 namespace Samson.Standard.MediaTypes
 {
-    public class File : Downloadable, IFile
+    public partial class File : Downloadable, IFile
     {
     }
 }

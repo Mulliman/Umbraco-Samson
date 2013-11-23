@@ -121,6 +121,9 @@ namespace Samson.Standard.Services
         {
             var contentService = new ContentService();
 
+            // This root content only works for the first root node.
+            // Also this is likely to cause a db query which isn't great.
+            // Is there a better way to get root nodes?
             var rootIds = contentService.GetRootContent().Select(c => c.Id);
 
             return rootIds.Select(GetNodeById);

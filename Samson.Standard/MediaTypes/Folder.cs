@@ -1,6 +1,6 @@
 ﻿namespace Samson.Standard.MediaTypes
 {
-    public class Folder : BasicMediaItem
+    public partial class Folder : BasicMediaItem
     {
     }
 }

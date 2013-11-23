@@ -2,7 +2,7 @@
 
 namespace Samson.Standard.MediaTypes
 {
-    public class Image : Downloadable, IImage
+    public partial class Image : Downloadable, IImage
     {
         public string AlternateText
         {
