@@ -29,11 +29,11 @@ namespace Samson.Demo
             //        {"Folder", typeof(Folder)}
             //    };
 
-            SamsonContext.Current.DocumentTypesProvider = new AutomaticDocumentTypeProvider(Assembly.GetExecutingAssembly());
+            SamsonContext.Current.DocumentTypesProvider = new AttributeDocumentTypeProvider(Assembly.GetExecutingAssembly());
             //SamsonContext.Current.DocumentTypesProvider.RegisterModelTypes(modelTypes);
             SamsonContext.Current.StrongContentService = new StrongContentService();
 
-            SamsonContext.Current.MediaTypesProvider = new AutomaticMediaTypesProvider(Assembly.GetExecutingAssembly());
+            SamsonContext.Current.MediaTypesProvider = new AttributeMediaTypeProvider(Assembly.GetExecutingAssembly());
             //SamsonContext.Current.MediaTypesProvider.RegisterModelTypes(mediaModelTypes);
             SamsonContext.Current.StrongMediaService = new StrongMediaService();
         }
