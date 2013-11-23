@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Samson.Services;
 using Samson.Standard.DocumentTypes;
 using Samson.Standard.DocumentTypes.Interfaces;
 using Samson.Standard.MediaTypes;
@@ -57,6 +58,14 @@ namespace Samson.Standard
         }
 
         /// <summary>
+        /// Gets or sets the strong content service.
+        /// </summary>
+        /// <value>
+        /// The strong content service.
+        /// </value>
+        public IStrongContentService StrongContentService { get; set; }
+
+        /// <summary>
         /// Gets or sets the media types provider.
         /// </summary>
         /// <value>
@@ -74,5 +83,13 @@ namespace Samson.Standard
         {
             get { return new MediaTypeFactory(_umbracoHelper, MediaTypesProvider); }
         }
+
+        /// <summary>
+        /// Gets or sets the strong media service.
+        /// </summary>
+        /// <value>
+        /// The strong media service.
+        /// </value>
+        public IStrongMediaService StrongMediaService { get; set; }
     }
 }

@@ -188,11 +188,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentTypes\AutomaticDocumentTypeProvider.cs" />
     <Compile Include="DocumentTypes\BasicContentItem.cs" />
     <Compile Include="DocumentTypes\DocumentTypeFactory.cs" />
     <Compile Include="DocumentTypes\Interfaces\IDocumentTypeFactory.cs" />
     <Compile Include="DocumentTypes\Interfaces\IDocumentTypesProvider.cs" />
     <Compile Include="DocumentTypes\ManualDocumentTypeProvider.cs" />
+    <Compile Include="MediaTypes\AutomaticMediaTypesProvider.cs" />
     <Compile Include="MediaTypes\BasicMediaItem.cs" />
     <Compile Include="MediaTypes\Downloadable.cs" />
     <Compile Include="MediaTypes\File.cs" />

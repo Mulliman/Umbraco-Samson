@@ -1,15 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Samson.DocumentTypes;
 using Samson.Standard.DocumentTypes.Interfaces;
 
 namespace Samson.Standard.DocumentTypes
 {
-    public class ManualDocumentTypeProvider : IDocumentTypesProvider
+    public class AutomaticDocumentTypeProvider : IDocumentTypesProvider
     {
-        public ManualDocumentTypeProvider()
+        public AutomaticDocumentTypeProvider(Assembly assembly)
         {
-            ModelTypesAndAliases = new Dictionary<string, Type>();
+            // User defined types
+            var modelTypes = GetStrongModelTypes(assembly).ToList();
+
+            // Built in types
+            modelTypes.AddRange(GetBuiltInSamsonTypes());
+
+            ModelTypesAndAliases = modelTypes.ToDictionary(t => t.Name, t => t);
+        }
+
+        public AutomaticDocumentTypeProvider(IEnumerable<Assembly> assemblies)
+        {
+            // User defined types
+            var modelTypes = assemblies.SelectMany(a => GetStrongModelTypes(a)).ToList();
+
+            // Built in types
+            modelTypes.AddRange(GetBuiltInSamsonTypes());
+
+            ModelTypesAndAliases = modelTypes.ToDictionary(t => t.Name, t => t);
+        }
+
+        private IEnumerable<Type> GetBuiltInSamsonTypes()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            return GetStrongModelTypes(assembly);
+        }
+
+        private IEnumerable<Type> GetStrongModelTypes(Assembly assembly)
+        {
+            return assembly.GetTypes()
+                .ToList()
+                .Where(t => typeof(IBasicContentItem).IsAssignableFrom(t));
         }
 
         /// <summary>

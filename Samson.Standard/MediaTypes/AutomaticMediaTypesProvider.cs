@@ -1,15 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Samson.Standard.DocumentTypes.Interfaces;
+using System.Reflection;
+using Samson.MediaTypes;
+using Samson.Standard.MediaTypes.Interfaces;
 
-namespace Samson.Standard.DocumentTypes
+namespace Samson.Standard.MediaTypes
 {
-    public class ManualDocumentTypeProvider : IDocumentTypesProvider
+    public class AutomaticMediaTypesProvider : IMediaTypesProvider
     {
-        public ManualDocumentTypeProvider()
+        public AutomaticMediaTypesProvider(Assembly assembly)
         {
-            ModelTypesAndAliases = new Dictionary<string, Type>();
+            // User defined types
+            var modelTypes = GetStrongModelTypes(assembly).ToList();
+
+            // Built in types
+            modelTypes.AddRange(GetBuiltInSamsonTypes());
+
+            ModelTypesAndAliases = modelTypes.ToDictionary(t => t.Name, t => t);
+        }
+
+        public AutomaticMediaTypesProvider(IEnumerable<Assembly> assemblies)
+        {
+            // User defined types
+            var modelTypes = assemblies.SelectMany(a => GetStrongModelTypes(a)).ToList();
+
+            // Built in types
+            modelTypes.AddRange(GetBuiltInSamsonTypes());
+
+            ModelTypesAndAliases = modelTypes.ToDictionary(t => t.Name, t => t);
+        }
+
+        private IEnumerable<Type> GetBuiltInSamsonTypes()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            return GetStrongModelTypes(assembly);
+        }
+
+        private IEnumerable<Type> GetStrongModelTypes(Assembly assembly)
+        {
+            return assembly.GetTypes()
+                .ToList()
+                .Where(t => typeof(IBasicMediaItem).IsAssignableFrom(t));
         }
 
         /// <summary>
