@@ -213,7 +213,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\SamsonConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SamsonController.cs" />
     <Compile Include="DocumentTypes\BlogPage.cs" />
     <Compile Include="DocumentTypes\Content.cs" />
     <Compile Include="DocumentTypes\Home.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -276,9 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -361,6 +360,10 @@
     <Content Include="Views\MacroPartials\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Samson.Standard.Mvc\Samson.Standard.Mvc.csproj">
+      <Project>{b963a7a1-3e39-4d70-b95a-e1b3e7cdd6cf}</Project>
+      <Name>Samson.Standard.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Samson.Standard\Samson.Standard.csproj">
       <Project>{7138ef15-a855-443c-9941-36daff9747dc}</Project>
       <Name>Samson.Standard</Name>
@@ -372,6 +375,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\BlogArticle.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Partials\HomeView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\MacroPartials\Home.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

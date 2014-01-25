@@ -14,7 +14,7 @@ namespace Samson.Standard.MediaTypes
             // User defined types
             var modelTypes = GetStrongModelTypes(assembly).ToList();
 
-            // Built in types
+            // Built in tympes
             modelTypes.AddRange(GetBuiltInSamsonTypes());
 
             ModelTypesAndAliases = modelTypes.ToDictionary(t => GetAttributeValueOrClassName(t), t => t);

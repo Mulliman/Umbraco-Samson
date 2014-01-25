@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Samson.Demo.DocumentTypes;
+﻿using System.Reflection;
+using System.Web.Mvc;
 using Samson.Standard;
 using Samson.Standard.DocumentTypes;
 using Samson.Standard.MediaTypes;
@@ -36,6 +34,10 @@ namespace Samson.Demo
             SamsonContext.Current.MediaTypesProvider = new AttributeMediaTypeProvider(Assembly.GetExecutingAssembly());
             //SamsonContext.Current.MediaTypesProvider.RegisterModelTypes(mediaModelTypes);
             SamsonContext.Current.StrongMediaService = new StrongMediaService();
+
+            ControllerBuilder.Current.SetControllerFactory(
+                new Samson.Standard.Mvc.StandardSamsonControllerFactory()
+           ); 
         }
 
     }
