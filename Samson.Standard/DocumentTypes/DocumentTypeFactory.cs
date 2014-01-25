@@ -145,6 +145,9 @@ namespace Samson.Standard.DocumentTypes
             if (standardModel != null)
             {
                 standardModel.ContentItem = contentItem;
+
+                standardModel.SetCustomFields();
+
                 return standardModel as T;
             }
 

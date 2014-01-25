@@ -9,6 +9,11 @@ namespace Samson.Standard.DocumentTypes
 {
     public class BasicContentItem : IBasicContentItem
     {
+        public virtual void SetCustomFields()
+        {
+            // Empty as default.
+        }
+
         public IPublishedContent ContentItem { get; set; }
 
         /// <summary>
@@ -108,7 +113,7 @@ namespace Samson.Standard.DocumentTypes
         /// <returns>
         ///     Returns the property.
         /// </returns>
-        protected T GetProperty<T>(string propertyName)
+        protected T GetPropertyValue<T>(string propertyName)
         {
             try
             {
@@ -116,7 +121,12 @@ namespace Samson.Standard.DocumentTypes
 
                 var propertyValue = property.Value;
 
-                TypeConverter tc = TypeDescriptor.GetConverter(typeof(T));
+                if (propertyValue is T)
+                {
+                    return (T)propertyValue;
+                }
+
+                var tc = TypeDescriptor.GetConverter(typeof(T));
                 return (T) tc.ConvertFrom(propertyValue);
             }
             catch
