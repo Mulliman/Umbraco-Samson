@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Sam Mullins</authors>
+    <owners>Sam Mullins</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Samson MVC bits and bobs.</description>
+	<copyright>Copyright 2014</copyright>
+    <tags>Umbraco Samson Mvc</tags>
+	<dependencies> 
+	   <dependency id="UmbracoCms.Core" version="6.0.0" />
+	   <dependency id="Samson" />
+	   <dependency id="Samson.Standard" />
+	</dependencies>
+  </metadata>
+</package>

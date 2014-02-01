@@ -1,0 +1,25 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+    
+@{
+    var service = Samson.Standard.SamsonContext.Current.StrongContentService;
+    
+    var root = service.GetRootNodes().First();
+
+    var desc = service.GetDescendantNodes(root);
+
+    <ul>
+    @foreach (var i in desc)
+    {
+         <li>@i.Name</li>
+    }
+    </ul>
+    
+    var desc2 = service.GetDescendantNodes<Samson.Demo7.DocumentTypes.Blog>(root);
+
+    <ul>
+    @foreach (var i in desc2)
+    {
+         <li>@i.PageTitle</li>
+    }
+    </ul>
+}
