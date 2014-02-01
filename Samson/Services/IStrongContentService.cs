@@ -107,6 +107,14 @@ namespace Samson.Services
         /// <returns></returns>
         T GetParent<T>(int childId) where T : class, IBasicContentItem;
 
+        IEnumerable<IBasicContentItem> GetDescendantNodes(IBasicContentItem parent);
+
+        IEnumerable<T> GetDescendantNodes<T>(IBasicContentItem parent) where T : class, IBasicContentItem;
+
+        IEnumerable<IBasicContentItem> GetDescendantNodes(int parentId);
+
+        IEnumerable<T> GetDescendantNodes<T>(int parentId) where T : class, IBasicContentItem;
+
         /// <summary>
         ///     Gets the nodes by ids.
         /// </summary>
