@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Samson.DocumentTypes;
 using Samson.Services;
 using Samson.Standard.DocumentTypes.Interfaces;
 using umbraco.NodeFactory;
+using Umbraco.Core.Models;
 using Umbraco.Core.Services;
+using Umbraco.Web;
 
 namespace Samson.Standard.Services
 {
@@ -11,14 +14,24 @@ namespace Samson.Standard.Services
     {
         public IDocumentTypeFactory DocumentTypeFactory { get; set; }
 
+        private readonly UmbracoContext _umbracoContext;
+
         public StrongContentService()
         {
             DocumentTypeFactory = SamsonContext.Current.DocumentTypeFactory;
+            _umbracoContext = UmbracoContext.Current;
         }
 
         public StrongContentService(IDocumentTypeFactory documentTypeFactory)
         {
             DocumentTypeFactory = documentTypeFactory;
+            _umbracoContext = UmbracoContext.Current;
+        }
+
+        public StrongContentService(IDocumentTypeFactory documentTypeFactory, UmbracoContext context)
+        {
+            DocumentTypeFactory = documentTypeFactory;
+            _umbracoContext = context;
         }
 
         public Samson.DocumentTypes.IBasicContentItem GetCurrentNode()
@@ -119,14 +132,62 @@ namespace Samson.Standard.Services
 
         public IEnumerable<Samson.DocumentTypes.IBasicContentItem> GetRootNodes()
         {
-            var contentService = new ContentService();
+            var helper = new UmbracoHelper(_umbracoContext);
 
-            // This root content only works for the first root node.
-            // Also this is likely to cause a db query which isn't great.
-            // Is there a better way to get root nodes?
-            var rootIds = contentService.GetRootContent().Select(c => c.Id);
+            var rootIds = helper.TypedContentAtRoot().Select(n => n.Id);
 
             return rootIds.Select(GetNodeById);
+        }
+
+
+        public IEnumerable<Samson.DocumentTypes.IBasicContentItem> GetDescendantNodes(Samson.DocumentTypes.IBasicContentItem parent)
+        {
+            return GetDescendants(parent);
+        }
+
+        public IEnumerable<T> GetDescendantNodes<T>(Samson.DocumentTypes.IBasicContentItem parent) where T : class, Samson.DocumentTypes.IBasicContentItem
+        {
+            return GetDescendants<T>(parent);
+        }
+
+        public IEnumerable<Samson.DocumentTypes.IBasicContentItem> GetDescendantNodes(int parentId)
+        {
+            var content = DocumentTypeFactory.GetNodeById(parentId);
+
+            return GetDescendants(content);
+        }
+
+        public IEnumerable<T> GetDescendantNodes<T>(int parentId) where T : class, Samson.DocumentTypes.IBasicContentItem
+        {
+            var content = DocumentTypeFactory.GetNodeById(parentId);
+
+            return GetDescendants<T>(content);
+        }
+
+        private IEnumerable<IBasicContentItem> GetDescendants(IBasicContentItem parent)
+        {
+            var descendants = new List<IBasicContentItem>();
+
+            var children = GetNodesByIds(parent.ChildIds);
+
+            descendants.AddRange(children);
+
+            descendants.AddRange(children.SelectMany(GetDescendants));
+
+            return descendants;
+        }
+
+        private IEnumerable<T> GetDescendants<T>(IBasicContentItem parent) where T : class, Samson.DocumentTypes.IBasicContentItem
+        {
+            var descendants = new List<T>();
+
+            var children = GetNodesByIds(parent.ChildIds).Where(c => c != null);
+
+            descendants.AddRange(children.Where(c => c is T).Cast<T>());
+
+            descendants.AddRange(children.SelectMany(GetDescendants<T>));
+
+            return descendants;
         }
     }
 }

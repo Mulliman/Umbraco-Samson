@@ -146,12 +146,19 @@ namespace Samson.Standard.DocumentTypes
             {
                 standardModel.ContentItem = contentItem;
 
-                standardModel.SetCustomFields();
+                standardModel = PopulateCustomProperties(standardModel);
 
                 return standardModel as T;
             }
 
             return model;
+        }
+
+        protected virtual BasicContentItem PopulateCustomProperties(BasicContentItem contentItem)
+        {
+            contentItem.SetCustomFields();
+
+            return contentItem;
         }
     }
 }
