@@ -10,7 +10,7 @@ namespace Samson.Demo.DocumentTypes
         /// <value>
         /// The hero image ID.
         /// </value>
-        public int HeroImageId { get { return GetProperty<int>("heroImage"); } }
+        public int HeroImageId { get { return GetPropertyValue<int>("heroImage"); } }
 
         /// <summary>
         /// Gets or sets the main title.
@@ -18,7 +18,7 @@ namespace Samson.Demo.DocumentTypes
         /// <value>
         /// The main title.
         /// </value>
-        public string MainContent { get { return GetProperty<string>("mainContent"); } }
+        public string MainContent { get { return GetPropertyValue<string>("mainContent"); } }
     
     }
 }

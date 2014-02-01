@@ -1,6 +1,5 @@
-<%@ Page Language="c#" MasterPageFile="../masterpages/umbracoDialog.Master" Codebehind="protectPage.aspx.cs" AutoEventWireup="True" Inherits="umbraco.presentation.umbraco.dialogs.protectPage" %>
+<%@ Page Language="c#" MasterPageFile="../masterpages/umbracoDialog.Master" AutoEventWireup="True" Inherits="umbraco.presentation.umbraco.dialogs.protectPage" %>
 <%@ Register TagPrefix="cc1" Namespace="umbraco.uicontrols" Assembly="controls" %>
-
 
 <asp:Content ContentPlaceHolderID="head" runat="server">
   <script type="text/javascript">
@@ -75,54 +74,67 @@
 
 
 <asp:Content ContentPlaceHolderID="body" runat="server">
+        
         <input id="tempFile" type="hidden" name="tempFile" runat="server"/>
     
         <cc1:Feedback ID="feedback" runat="server" />
         
         <asp:Panel ID="p_mode" runat="server">
+          <div class="umg-dialog-body">
+                
           <cc1:Pane ID="pane_chooseMode" runat="server" Text="Choose how to restict access to this page">
+
             <asp:RadioButton GroupName="mode" ID="rb_simple" runat="server" style="float: left; margin: 10px;" Checked="true"/>
             
-            <div style="float: left; padding: 0px 10px 10px 10px;">
-            <h3 style="padding-top: 0px;"><%= umbraco.ui.Text("publicAccess", "paSimple", base.getUser())%></h3>
-            <p><%= umbraco.ui.Text("publicAccess", "paSimpleHelp", base.getUser())%></p>
-            </div>
-            <br style="clear: both;"/>
+                <div style="float: right;">
+                <h4 style="padding-top: 0px;"><%= umbraco.ui.Text("publicAccess", "paSimple", base.getUser())%></h4>
+                <p><%= umbraco.ui.Text("publicAccess", "paSimpleHelp", base.getUser())%></p>
+                </div>
+
+                <br style="clear: both;"/>
                    
             <asp:RadioButton GroupName="mode" ID="rb_advanced" runat="server" style="float: left; margin: 10px;"/>
-            <div style="float: left; padding-left: 10px;">
-            <h3 style="padding-top: 0px;"><%= umbraco.ui.Text("publicAccess", "paAdvanced", base.getUser())%></h3>
-            <p><%= umbraco.ui.Text("publicAccess", "paAdvancedHelp", base.getUser())%></p>
+            
+              <div style="float: left; padding-left: 10px;">
+                <h4 style="padding-top: 0px;"><%= umbraco.ui.Text("publicAccess", "paAdvanced", base.getUser())%></h4>
+                <p><%= umbraco.ui.Text("publicAccess", "paAdvancedHelp", base.getUser())%></p>
             
             <asp:panel runat="server" Visible="false" ID="p_noGroupsFound" CssClass="error">
               <p>
-               <%= umbraco.ui.Text("publicAccess", "paAdvancedNoGroups", base.getUser())%>
+               <%= umbraco.ui.Text("publicAccess", "paAdvancedNoGroups", UmbracoUser)%>
               </p>
             </asp:panel>
             
             </div>
           </cc1:Pane>
-          <p>
-             <asp:Button ID="bt_selectMode" runat="server" Text="select" OnClick="selectMode" />&nbsp; <em><%= umbraco.ui.Text("or") %></em>&nbsp; <a href="#" style="color: blue" onclick="UmbClientMgr.closeModalWindow()"><%=umbraco.ui.Text("cancel")%></a>
-          </p>
+          </div>
+
+          <div class="umb-dialog-footer btn-toolbar umb-btn-toolbar">
+                <a href="#" class="btn btn-link" onclick="UmbClientMgr.closeModalWindow()"><%=umbraco.ui.Text("cancel")%></a>
+                <asp:Button ID="bt_selectMode" runat="server" Text="select" CssClass="btn btn-primary" OnClick="selectMode" />
+          </div>
          </asp:Panel>
          
          
         <cc1:Pane ID="pane_simple" runat="server" Visible="false" Text="Single user protection">
           <cc1:PropertyPanel ID="PropertyPanel1" runat="server">
-          <p> <%= umbraco.ui.Text("publicAccess", "paSetLogin", base.getUser())%></p>
+          <p> <%= umbraco.ui.Text("publicAccess", "paSetLogin", UmbracoUser)%></p>
+           <asp:CustomValidator runat="server" ID="SimpleLoginNameValidator" Display="Dynamic" EnableViewState="False">
+               <p class="alert">Member name already exists, click <asp:LinkButton runat="server" OnClick="ChangeOnClick" CssClass="btn btn-mini btn-warning">Change</asp:LinkButton> to use a different name or Update to continue</p>
+           </asp:CustomValidator>
           </cc1:PropertyPanel>
           <cc1:PropertyPanel Text="Login" ID="pp_login" runat="server">
               <asp:TextBox ID="simpleLogin" runat="server" Width="150px"></asp:TextBox>
-          </cc1:PropertyPanel>
+              <asp:Label runat="server" ID="SimpleLoginLabel" Visible="False"></asp:Label>                                          
+          </cc1:PropertyPanel>          
           <cc1:PropertyPanel Text="Password" ID="pp_pass" runat="server">
-              <asp:TextBox ID="simplePassword" runat="server" Width="150px"></asp:TextBox>
+              <asp:TextBox ID="simplePassword" runat="server" Width="150px"></asp:TextBox>              
           </cc1:PropertyPanel>
         </cc1:Pane>
         
         <cc1:Pane ID="pane_advanced" runat="server" Visible="false" Text="Role based protection">
           <cc1:PropertyPanel ID="PropertyPanel3" runat="server">
-          <p> <%= umbraco.ui.Text("publicAccess", "paSelectRoles", base.getUser())%></p>
+          <p> <%= umbraco.ui.Text("publicAccess", "paSelectRoles", UmbracoUser)%></p>
           </cc1:PropertyPanel>
             <cc1:PropertyPanel ID="PropertyPanel2" runat="server">
               <asp:PlaceHolder ID="groupsSelector" runat="server"></asp:PlaceHolder>
@@ -150,11 +162,14 @@
              </cc1:PropertyPanel>
              
              </cc1:Pane>
-             <p>
-                <asp:Button ID="bt_protect" runat="server" OnCommand="protect_Click"></asp:Button> 
-                <asp:Button ID="bt_buttonRemoveProtection" runat="server" Visible="False" OnClick="buttonRemoveProtection_Click"/>
-                &nbsp; <em><%= umbraco.ui.Text("or") %></em>&nbsp; <a href="#" style="color: blue" onclick="UmbClientMgr.closeModalWindow()"><%=umbraco.ui.Text("cancel")%></a>
-             </p>             
+             </div>
+            
+            <div class="umb-dialog-footer btn-toolbar umb-btn-toolbar">
+                <a href="#" class="btn btn-link" onclick="UmbClientMgr.closeModalWindow()"><%=umbraco.ui.Text("cancel")%></a>
+            <asp:Button ID="bt_protect" CssClass="btn btn-primary" runat="server" OnCommand="protect_Click"></asp:Button> 
+            <asp:Button ID="bt_buttonRemoveProtection" CssClass="btn btn-danger" runat="server" Visible="False" OnClick="buttonRemoveProtection_Click"/>
+            </div>
+                    
          </asp:Panel>
          
          <input id="errorId" type="hidden" runat="server" /><input id="loginId" type="hidden" runat="server" />         

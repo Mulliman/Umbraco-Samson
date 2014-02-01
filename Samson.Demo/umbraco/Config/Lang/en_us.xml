@@ -8,6 +8,7 @@
     <key alias="assignDomain">Manage hostnames</key>
     <key alias="auditTrail">Audit Trail</key>
     <key alias="browse">Browse Node</key>
+    <key alias="changeDocType">Change Document Type</key>
     <key alias="copy">Copy</key>
     <key alias="create">Create</key>
     <key alias="createPackage">Create Package</key>
@@ -52,6 +53,7 @@
   <area alias="auditTrails">
     <key alias="atViewingFor">Viewing for</key>
   </area>
+
   <area alias="buttons">
     <key alias="bold">Bold</key>
     <key alias="deindent">Cancel Paragraph Indent</key>
@@ -78,6 +80,23 @@
     <key alias="styleChoose">Choose style</key>
     <key alias="styleShow">Show styles</key>
     <key alias="tableInsert">Insert table</key>
+  </area>
+  <area alias="changeDocType">
+    <key alias="changeDocTypeInstruction">To change the document type for the selected content, first select from the list of valid types for this location.</key>
+    <key alias="changeDocTypeInstruction2">Then confirm and/or amend the mapping of properties from the current type to the new, and click Save.</key>
+    <key alias="currentProperty">Current Property</key>
+    <key alias="currentType">Current type</key>
+    <key alias="docTypeCannotBeChanged">The document type cannot be changed, as there are no alternatives valid for this location.</key>
+    <key alias="mapProperties">Map Properties</key>
+    <key alias="mapToProperty">Map to Property</key>
+    <key alias="newTemplate">New Template</key>
+    <key alias="newType">New Type</key>
+    <key alias="none">none</key>
+    <key alias="selectedContent">Content</key>
+    <key alias="selectNewDocType">Select New Document Type</key>
+    <key alias="successMessage">The document type of the selected content has been successfully changed and the properties mapped.</key>
+    <key alias="validationErrorPropertyWithMoreThanOneMapping">Could not complete property mapping as one or more properties have more than one mapping defined.</key>
+    <key alias="validDocTypesNote">Only alternate types valid for the current location are displayed.</key>
   </area>
   <area alias="content">
     <key alias="about">About this page</key>
@@ -116,6 +135,8 @@
     <key alias="updateDate">Last edited</key>
     <key alias="uploadClear">Remove file</key>
     <key alias="urls">Link to document</key>
+    <key alias="memberof">Member of group(s)</key>
+    <key alias="notmemberof">Not a member of group(s)</key>
   </area>
   <area alias="create">
     <key alias="chooseNode">Where do you want to create the new %0%</key>
@@ -241,7 +262,7 @@
     <key alias="stylesNoStylesOnPage">No active styles available</key>
     <key alias="tableColMergeLeft">Please place cursor at the left of the two cells you wish to merge</key>
     <key alias="tableSplitNotSplittable">You cannot split a cell that hasn't been merged.</key>
-    <key alias="xsltErrorHeader">Error in xslt source</key>
+    <key alias="xsltErrorHeader">Error in XSLT source</key>
     <key alias="xsltErrorText">The XSLT has not been saved, because it contained error(s)</key>
   </area>
   <area alias="general">
@@ -516,9 +537,21 @@ To manage your website, simply open the umbraco back office and start adding con
     <key alias="lockoutWillOccur">You've been idle and logout will automatically occur in</key>
     <key alias="renewSession">Renew now to save your work</key>
   </area>
+
+
   <area alias="login">
+    <key alias="greeting1">Happy super sunday</key>
+    <key alias="greeting2">Happy manic monday </key>
+    <key alias="greeting3">Happy tremendous tuesday</key>
+    <key alias="greeting4">Happy wonderfull wednesday</key>
+    <key alias="greeting5">Happy thunder thursday</key>
+    <key alias="greeting6">Happy friendly friday</key>
+    <key alias="greeting7">Happy shiny saturday</key>
+    <key alias="topText">log in below:</key>
+
+
     <key alias="bottomText"><![CDATA[<p style="text-align:right;">&copy; 2001 - %0% <br /><a href="http://umbraco.org" style="text-decoration: none" target="_blank">umbraco.org</a></p> ]]></key>
-    <key alias="topText">Welcome to umbraco, type your username and password in the boxes below:</key>
+    
   </area>
   <area alias="main">
     <key alias="dashboard">Dashboard</key>
@@ -549,7 +582,7 @@ To manage your website, simply open the umbraco back office and start adding con
       has been performed on the page '%2%'
       by the user '%3%'
 
-      Go to http://%4%/actions/editContent.aspx?id=%5% to edit.
+      Go to http://%4%/#/content/content/edit/%5% to edit.
 
       Have a nice day!
 
@@ -565,9 +598,7 @@ To manage your website, simply open the umbraco back office and start adding con
 	  </p>
 		  <div style="margin: 8px 0; padding: 8px; display: block;">
 				<br />
-				<a style="color: white; font-weight: bold; background-color: #66cc66; text-decoration : none; margin-right: 20px; border: 8px solid #66cc66; width: 150px;" href="http://%4%/actions/publish.aspx?id=%5%">&nbsp;&nbsp;PUBLISH&nbsp;&nbsp;</a> &nbsp; 
-				<a style="color: white; font-weight: bold; background-color: #5372c3; text-decoration : none; margin-right: 20px; border: 8px solid #5372c3; width: 150px;" href="http://%4%/actions/editContent.aspx?id=%5%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> &nbsp; 
-				<a style="color: white; font-weight: bold; background-color: #ca4a4a; text-decoration : none; margin-right: 20px; border: 8px solid #ca4a4a; width: 150px;" href="http://%4%/actions/delete.aspx?id=%5%">&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a style="color: white; font-weight: bold; background-color: #5372c3; text-decoration : none; margin-right: 20px; border: 8px solid #5372c3; width: 150px;" href="http://%4%/#/content/content/edit/%5%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> &nbsp; 
 				<br />
 		  </div>
 		  <p>
@@ -579,9 +610,7 @@ To manage your website, simply open the umbraco back office and start adding con
 
 		  <div style="margin: 8px 0; padding: 8px; display: block;">
 				<br />
-				<a style="color: white; font-weight: bold; background-color: #66cc66; text-decoration : none; margin-right: 20px; border: 8px solid #66cc66; width: 150px;" href="http://%4%/actions/publish.aspx?id=%5%">&nbsp;&nbsp;PUBLISH&nbsp;&nbsp;</a> &nbsp; 
-				<a style="color: white; font-weight: bold; background-color: #5372c3; text-decoration : none; margin-right: 20px; border: 8px solid #5372c3; width: 150px;" href="http://%4%/actions/editContent.aspx?id=%5%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> &nbsp; 
-				<a style="color: white; font-weight: bold; background-color: #ca4a4a; text-decoration : none; margin-right: 20px; border: 8px solid #ca4a4a; width: 150px;" href="http://%4%/actions/delete.aspx?id=%5%">&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a style="color: white; font-weight: bold; background-color: #5372c3; text-decoration : none; margin-right: 20px; border: 8px solid #5372c3; width: 150px;" href="http://%4%/#/content/content/edit/%5%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> &nbsp; 
 				<br />
 		  </div>
 
@@ -763,7 +792,7 @@ To manage your website, simply open the umbraco back office and start adding con
     <key alias="editContentSendToPublish">Sent For Approval</key>
     <key alias="editContentSendToPublishText">Changes have been sent for approval</key>
     <key alias="editMediaSaved">Media saved</key>
-    <key alias="editMediaSavedText"></key>
+    <key alias="editMediaSavedText">Media saved without any errors</key>
     <key alias="editMemberSaved">Member saved</key>
     <key alias="editStylesheetPropertySaved">Stylesheet Property Saved</key>
     <key alias="editStylesheetSaved">Stylesheet saved</key>
@@ -784,11 +813,11 @@ To manage your website, simply open the umbraco back office and start adding con
     <key alias="templateErrorText">Please make sure that you do not have 2 templates with the same alias</key>
     <key alias="templateSavedHeader">Template saved</key>
     <key alias="templateSavedText">Template saved without any errors!</key>
-    <key alias="xsltErrorHeader">Xslt not saved</key>
-    <key alias="xsltErrorText">Xslt contained an error</key>
-    <key alias="xsltPermissionErrorText">Xslt could not be saved, check file permissions</key>
-    <key alias="xsltSavedHeader">Xslt saved</key>
-    <key alias="xsltSavedText">No errors in xslt</key>
+    <key alias="xsltErrorHeader">XSLT not saved</key>
+    <key alias="xsltErrorText">XSLT contained an error</key>
+    <key alias="xsltPermissionErrorText">XSLT could not be saved, check file permissions</key>
+    <key alias="xsltSavedHeader">XSLT saved</key>
+    <key alias="xsltSavedText">No errors in XSLT</key>
     <key alias="partialViewSavedHeader">Partial view saved</key>
     <key alias="partialViewSavedText">Partial view saved without any errors!</key>
     <key alias="partialViewErrorHeader">Partial view not saved</key>
@@ -867,7 +896,7 @@ To manage your website, simply open the umbraco back office and start adding con
       Go to http://%3%/translation/details.aspx?id=%4% to edit.
 
       Or log into umbraco to get an overview of your translation tasks
-      http://%3%/umbraco.aspx
+      http://%3%
 
       Have a nice day!
 
@@ -932,6 +961,12 @@ To manage your website, simply open the umbraco back office and start adding con
     <key alias="updateNoServer">No connection to server</key>
     <key alias="updateNoServerError">Error checking for update. Please review trace-stack for further information</key>
   </area>
+  <area alias="placeholders">
+    <key alias="username">Enter your username</key>
+    <key alias="password">Enter your password</key>
+    <key alias="search">Type to search</key>
+    <key alias="filter">Type to filter</key>
+  </area>
   <area alias="user">
     <key alias="administrators">Administrator</key>
     <key alias="categoryField">Category field</key>
@@ -940,7 +975,6 @@ To manage your website, simply open the umbraco back office and start adding con
     <key alias="confirmNewPassword">Confirm new password</key>
     <key alias="changePasswordDescription">You can change your password for accessing the Umbraco Back Office by filling out the form below and click the 'Change Password' button</key>
     <key alias="contentChannel">Content Channel</key>
-    <key alias="defaultToLiveEditing">Redirect to canvas on login</key>
     <key alias="descriptionField">Description field</key>
     <key alias="disabled">Disable User</key>
     <key alias="documentType">Document Type</key>
@@ -952,6 +986,7 @@ To manage your website, simply open the umbraco back office and start adding con
     <key alias="modules">Sections</key>
     <key alias="noConsole">Disable Umbraco Access</key>
     <key alias="password">Password</key>
+    <key alias="resetPassword">Reset password</key>
     <key alias="passwordChanged">Your password has been changed!</key>
     <key alias="passwordConfirm">Please confirm the new password</key>
     <key alias="passwordEnterNew">Enter your new password</key>

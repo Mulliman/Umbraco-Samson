@@ -26,13 +26,13 @@
 
                             <ul>
                                 <li>
-                                    <input type="radio" id="databaseOptionBlank" name="database" value="blank" />
-                                    <label for="databaseOptionBlank">I already have a blank SQL Server, SQL Azure or MySQL database</label>
+                                    <input type="radio" id="databaseOptionEmbedded" name="database" value="embedded" />
+                                    <label for="databaseOptionEmbedded">I want to use SQL CE 4, a free, quick-and-simple embedded database</label>
 
                                 </li>
                                 <li>
-                                    <input type="radio" id="databaseOptionEmbedded" name="database" value="embedded" />
-                                    <label for="databaseOptionEmbedded">I want to use SQL CE 4, a free, quick-and-simple embedded database</label>
+                                    <input type="radio" id="databaseOptionBlank" name="database" value="blank" />
+                                    <label for="databaseOptionBlank">I already have a blank SQL Server, SQL Azure or MySQL database</label>
 
                                 </li>
                                 <li>
@@ -201,7 +201,7 @@
                             <div class="step">
                                 <div class="container">
                                     <p>
-                                        <strong>2. Connection details:</strong> Please fill out the connection information for your database.</strong>
+                                        <strong>2. Connection details:</strong> Please fill out the connection information for your database.
                                     </p>
 
                                     <div class="instruction-hold">
@@ -253,7 +253,6 @@
         </div>
     </div>
     <script type="text/javascript">
-        var hasEmbeddedDlls = <%= HasEmbeddedDatabaseFiles.ToString().ToLower() %>;
         var currentVersion = '<%=UmbracoVersion.Current.ToString(3)%> <%=UmbracoVersion.CurrentComment%> ';
         var configured = <%= IsConfigured.ToString().ToLower() %>;
 
@@ -278,15 +277,9 @@
                     $(".database-option").hide();
                     $("#database-embedded").show();
 
-                    if (!hasEmbeddedDlls) {
-                        $('.embeddedError').show();
-                        $(".installbtn").hide();
-                    }
-                    else {
-                        $('.embedded').show();
-                        $(".installbtn").show();
-                    }
-	                    
+                    $('.embedded').show();
+                    $(".installbtn").show();
+                    
                     break;
                 case "advanced":
                     $(".database-option").hide();
@@ -368,33 +361,81 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function() {
+            
             updateProgressBar("5");
             updateStatusMessage("Connecting to database..");
 
-            $.ajax({
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: '{}',
-                dataType: 'json',
-                url: 'InstallerRestService.aspx/InstallOrUpgrade',
-                success: function(data) {
-                    var json = JSON.parse(data.d);
+            var upgradeTimeout;
 
-                    updateProgressBar(json.Percentage);
-                    updateStatusMessage(json.Message);
-                
-                    if (json.Success) {    
-                        $(".btn-box").show();
-                        $('.ui-progressbar-value').css("background-image", "url(../umbraco_client/installer/images/pbar.gif)");
-                        $(".result-status-container").show();
-                        $(".progress-status-container").hide();
-                    } else {
-                        $(".btn-continue").hide();
-                        $(".btn-back").show();
-                        $(".btn-box").show();
-                    }
+            function upgradeProgress(currProgress) {
+                if (currProgress < 90) {
+                    upgradeTimeout = setTimeout(function() {
+                        currProgress++;
+                        updateProgressBar(currProgress.toString());
+                        upgradeProgress(currProgress);
+                    }, 10000);
                 }
-            });
+            }
+
+            function handleSuccess(json) {
+                if (json.Success) {    
+                    $(".btn-box").show();
+                    $('.ui-progressbar-value').css("background-image", "url(../umbraco_client/installer/images/pbar.gif)");
+                    $(".result-status-container").show();
+                    $(".progress-status-container").hide();
+                } 
+                else {
+                    $(".btn-continue").hide();
+                    $(".btn-back").show();
+                    $(".btn-box").show();
+                }
+            }
+
+            function runUpgrade() {
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: '{}',
+                    dataType: 'json',
+                    url: 'InstallerRestService.aspx/Upgrade',
+                    success: function(data) {
+                        clearTimeout(upgradeTimeout);
+                        var json = JSON.parse(data.d);
+
+                        updateProgressBar(json.Percentage);
+                        updateStatusMessage(json.Message);
+                
+                        handleSuccess(json);
+                    }
+                });
+                upgradeProgress(30);
+            }
+
+            function runInstall() {
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: '{}',
+                    dataType: 'json',
+                    url: 'InstallerRestService.aspx/Install',
+                    success: function(data) {
+                        var json = JSON.parse(data.d);
+
+                        updateProgressBar(json.Percentage);
+                        updateStatusMessage(json.Message);
+                
+                        if (json.RequiresUpgrade) {
+                            runUpgrade();
+                        }
+                        else {
+                            handleSuccess(json);
+                        }
+                    }
+                });
+            }
+
+            //kick it off
+            runInstall();
         });
     </script>
 

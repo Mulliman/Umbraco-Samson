@@ -6,8 +6,8 @@ namespace Samson.Demo.DocumentTypes
     [DocumentTypeAlias("blogArticle")]
     public class BlogPage : Page
     {
-        public DateTime DisplayDate { get { return GetProperty<DateTime>("displayDate"); } }
+        public DateTime DisplayDate { get { return GetPropertyValue<DateTime>("displayDate"); } }
 
-        public int ListingImageId { get { return GetProperty<int>("listingImage"); } }
+        public int ListingImageId { get { return GetPropertyValue<int>("listingImage"); } }
     }
 }

@@ -11,6 +11,6 @@ namespace Samson.Demo.DocumentTypes
         /// <value>
         /// The main title.
         /// </value>
-        public string MainTitle { get { return GetProperty<string>("mainTitle"); } }
+        public string MainTitle { get { return GetPropertyValue<string>("mainTitle"); } }
     }
 }
