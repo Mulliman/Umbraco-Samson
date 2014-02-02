@@ -109,3 +109,10 @@ PublishProfiles/
 _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
+umbraco
+umbraco_client
+
+install
+
+/Samson.Demo/ClassDiagram1.cd
+/Samson.Demo/macroScripts/Web.config
