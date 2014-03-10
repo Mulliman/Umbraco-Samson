@@ -215,6 +215,7 @@
     <Compile Include="DocumentTypes\DocumentTypeAliasAttribute.cs" />
     <Compile Include="DocumentTypes\DocumentTypeFactory.cs" />
     <Compile Include="DocumentTypes\DocumentTypeFactoryWithCaching.cs" />
+    <Compile Include="DocumentTypes\Interfaces\IDocumentTypeFactoryWithCaching.cs" />
     <Compile Include="DocumentTypes\Interfaces\IDocumentTypeFactory.cs" />
     <Compile Include="DocumentTypes\Interfaces\IDocumentTypesProvider.cs" />
     <Compile Include="DocumentTypes\ManualDocumentTypeProvider.cs" />

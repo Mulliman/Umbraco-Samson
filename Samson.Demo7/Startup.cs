@@ -5,6 +5,7 @@ using Samson.Standard.DocumentTypes;
 using Samson.Standard.MediaTypes;
 using Samson.Standard.Services;
 using Umbraco.Core;
+using Umbraco.Core.Services;
 
 namespace Samson.Demo7
 {
@@ -19,8 +20,19 @@ namespace Samson.Demo7
             SamsonContext.Current.StrongMediaService = new StrongMediaService();
 
             ControllerBuilder.Current.SetControllerFactory(
-                new Samson.Standard.Mvc.StandardSamsonControllerFactory()
-           );
+                new Standard.Mvc.StandardSamsonControllerFactory()
+            );
+
+            // As there is caching in the factory it needs to be told if things get published to update the cache.
+            ContentService.Published += ContentService_Published;
+        }
+
+        static void ContentService_Published(Umbraco.Core.Publishing.IPublishingStrategy sender, Umbraco.Core.Events.PublishEventArgs<Umbraco.Core.Models.IContent> e)
+        {
+            foreach (var entity in e.PublishedEntities)
+            {
+                SamsonContext.Current.DocumentTypeFactoryWithCaching.ClearCachedNode(entity.Id);
+            }
         }
     }
 }

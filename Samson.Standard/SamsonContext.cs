@@ -59,6 +59,17 @@ namespace Samson.Standard
         }
 
         /// <summary>
+        /// Gets the document type factory with caching.
+        /// </summary>
+        /// <value>
+        /// The document type factory with caching.
+        /// </value>
+        public IDocumentTypeFactoryWithCaching DocumentTypeFactoryWithCaching
+        {
+            get { return new DocumentTypeFactoryWithCaching(_umbracoHelper, DocumentTypesProvider, new SlidingHttpCache(600)); }
+        }
+
+        /// <summary>
         /// Gets or sets the strong content service.
         /// </summary>
         /// <value>

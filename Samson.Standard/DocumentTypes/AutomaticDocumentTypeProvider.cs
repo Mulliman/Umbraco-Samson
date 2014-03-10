@@ -23,7 +23,7 @@ namespace Samson.Standard.DocumentTypes
         public AutomaticDocumentTypeProvider(IEnumerable<Assembly> assemblies)
         {
             // User defined types
-            var modelTypes = assemblies.SelectMany(a => GetStrongModelTypes(a)).ToList();
+            var modelTypes = assemblies.SelectMany(GetStrongModelTypes).ToList();
 
             // Built in types
             modelTypes.AddRange(GetBuiltInSamsonTypes());
@@ -37,7 +37,7 @@ namespace Samson.Standard.DocumentTypes
             return GetStrongModelTypes(assembly);
         }
 
-        private IEnumerable<Type> GetStrongModelTypes(Assembly assembly)
+        private static IEnumerable<Type> GetStrongModelTypes(Assembly assembly)
         {
             return assembly.GetTypes()
                 .ToList()
@@ -100,7 +100,7 @@ namespace Samson.Standard.DocumentTypes
         /// <summary>
         /// Registers a group of model types.
         /// </summary>
-        /// <param name="modelsAndAliases">The models and aliases.</param>
+        /// <param name="aliasesAndModelType">The models and aliases.</param>
         /// <exception cref="System.NotImplementedException"></exception>
         public void RegisterModelTypes(IDictionary<string, Type> aliasesAndModelType)
         {

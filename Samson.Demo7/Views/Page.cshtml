@@ -15,7 +15,7 @@
 
         var j = 0;
         
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 100; i++)
         {
             j++;
             foreach (var publishedContent in children)
@@ -51,26 +51,16 @@
         // My stuff
         
         var nodesService = Samson.Standard.SamsonContext.Current.StrongContentService;
-
-        if (nodesService == null)
-        {
-            throw new Exception("No service");
-        }
         
         sw.Start();
 
-        var current = nodesService.GetCurrentNode<Samson.Demo7.DocumentTypes.Page>();
+        var current = nodesService.GetCurrentNode();
 
-        if (current == null)
-        {
-            throw new Exception("No current");
-        }
-
-        var strongChildren = nodesService.GetChildNodes<Samson.Demo7.DocumentTypes.Page>(current);
+        var strongChildren = nodesService.GetChildNodes(current);
 
         int k = 0;
         
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 100; i++)
         {
             k++;
             foreach (var c in strongChildren)
@@ -78,7 +68,7 @@
                 k++;
                 @c.Name;
 
-                foreach (var gc in nodesService.GetChildNodes<Samson.Demo7.DocumentTypes.Page>(c))
+                foreach (var gc in nodesService.GetChildNodes(c))
                 {
                     k++;
                     @gc.Name;
