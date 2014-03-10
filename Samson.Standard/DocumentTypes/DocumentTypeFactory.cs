@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using Samson.DocumentTypes;
 using Samson.Standard.DocumentTypes.Interfaces;
 using Umbraco.Core.Models;
@@ -37,7 +38,7 @@ namespace Samson.Standard.DocumentTypes
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public IBasicContentItem GetNodeById(int id)
+        public virtual IBasicContentItem GetNodeById(int id)
         {
             if(id < 1)
             {
@@ -67,7 +68,7 @@ namespace Samson.Standard.DocumentTypes
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public T GetNodeById<T>(int id) where T : class, IBasicContentItem
+        public virtual T GetNodeById<T>(int id) where T : class, IBasicContentItem
         {
             if (id < 1)
             {

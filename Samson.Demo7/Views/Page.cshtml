@@ -1,6 +1,102 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+﻿@using System.Diagnostics
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = null;
 }
 
-@Umbraco.RenderMacro("Desc")
+@{
+        // Normal Umbraco
+
+        var sw = new Stopwatch();
+        
+        sw.Start();
+        
+        var children = Umbraco.Content(Model.Content.Id).Children();
+
+        var j = 0;
+        
+        for (int i = 0; i < 1000; i++)
+        {
+            j++;
+            foreach (var publishedContent in children)
+            {
+                j++;
+                @publishedContent.Name
+
+                foreach (var gc in publishedContent.Children)
+                {
+                    j++;
+                    @gc.Name
+                }
+            }
+        }
+
+        @Html.Raw("<br />");
+        
+        @("---------------------------------------------------------------------------------------")
+        
+        @Html.Raw("<br />");
+        
+        @("Normal => " + sw.ElapsedMilliseconds + " " + children.Count() + " => " + j);
+
+        @Html.Raw("<br />");
+        
+        @("---------------------------------------------------------------------------------------")
+        
+        @Html.Raw("<br />");
+        
+        sw.Stop();
+        sw.Reset();
+        
+        // My stuff
+        
+        var nodesService = Samson.Standard.SamsonContext.Current.StrongContentService;
+
+        if (nodesService == null)
+        {
+            throw new Exception("No service");
+        }
+        
+        sw.Start();
+
+        var current = nodesService.GetCurrentNode<Samson.Demo7.DocumentTypes.Page>();
+
+        if (current == null)
+        {
+            throw new Exception("No current");
+        }
+
+        var strongChildren = nodesService.GetChildNodes<Samson.Demo7.DocumentTypes.Page>(current);
+
+        int k = 0;
+        
+        for (int i = 0; i < 1000; i++)
+        {
+            k++;
+            foreach (var c in strongChildren)
+            {
+                k++;
+                @c.Name;
+
+                foreach (var gc in nodesService.GetChildNodes<Samson.Demo7.DocumentTypes.Page>(c))
+                {
+                    k++;
+                    @gc.Name;
+                }
+            }
+        }
+        
+        @Html.Raw("<br />");
+        
+        @("---------------------------------------------------------------------------------------")
+        
+        @Html.Raw("<br />");
+        
+        @("Mine => " + sw.ElapsedMilliseconds + " " + strongChildren.Count() + " = > " + k);
+
+        @Html.Raw("<br />");
+        
+        @("---------------------------------------------------------------------------------------")
+        
+        sw.Stop();
+    }

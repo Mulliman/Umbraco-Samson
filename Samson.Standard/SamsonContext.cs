@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Samson.Services;
+using Samson.Standard.Cache;
 using Samson.Standard.DocumentTypes;
 using Samson.Standard.DocumentTypes.Interfaces;
 using Samson.Standard.MediaTypes;
@@ -54,7 +55,7 @@ namespace Samson.Standard
         /// </value>
         public IDocumentTypeFactory DocumentTypeFactory 
         {
-            get { return new DocumentTypeFactory(_umbracoHelper, DocumentTypesProvider); } 
+            get { return new DocumentTypeFactoryWithCaching(_umbracoHelper, DocumentTypesProvider, new SlidingHttpCache(600)); } 
         }
 
         /// <summary>
